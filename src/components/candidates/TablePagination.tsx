@@ -15,7 +15,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
   const to = Math.min((pageIndex + 1) * pageSize, totalRows);
 
   return (
-    <div className="flex items-center justify-between border-t px-4 py-3 text-sm text-muted-foreground">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t px-4 py-3 text-sm text-muted-foreground">
       <span>{totalRows === 0 ? 'No results' : `Showing ${from}–${to} of ${totalRows}`}</span>
       <div className="flex items-center gap-2">
         <Button

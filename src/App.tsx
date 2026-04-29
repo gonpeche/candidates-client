@@ -23,7 +23,7 @@ function App() {
           <StatusFilter value={statusFilter} onChange={setStatusFilter} />
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
           <ColumnVisibilityFilter />
-          <div className="flex items-center gap-3 sm:ml-auto w-full sm:w-auto justify-center sm:justify-end">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:ml-auto w-full sm:w-auto justify-center sm:justify-end">
             <CandidateStats
               statusFilter={statusFilter}
               searchQuery={searchQuery}
