@@ -4,6 +4,11 @@ import { ArrowDown, ArrowUp, ArrowUpDown, ExternalLink } from "lucide-react";
 import type { CandidateWithStatus } from "@/types";
 import { ActionMenu } from "@/components/candidates/ActionMenu";
 import { StatusBadge } from "@/components/candidates/StatusBadge";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 const col = createColumnHelper<CandidateWithStatus>();
 
@@ -44,7 +49,7 @@ export const candidateColumns = [
     size: 220,
     minSize: 150,
     maxSize: 150,
-    header: "Name",
+    header: "NAME",
     cell: (i) => (
       <span
         className="block max-w-[12rem] truncate font-medium text-foreground"
@@ -58,7 +63,7 @@ export const candidateColumns = [
     size: 130,
     minSize: 130,
     maxSize: 130,
-    header: () => <span className="flex justify-center">Document</span>,
+    header: () => <span className="flex justify-center">DOCUMENT</span>,
     cell: (i) => (
       <span className="block w-full text-center tabular-nums">
         {i.getValue()}
@@ -101,21 +106,21 @@ export const candidateColumns = [
     size: 140,
     minSize: 140,
     maxSize: 140,
-    header: "Phone",
+    header: "PHONE",
     cell: (i) => textCell(i.getValue()),
   }),
   col.accessor("email", {
     size: 250,
     minSize: 160,
     maxSize: 160,
-    header: "Email",
+    header: "EMAIL",
     cell: (i) => truncatedCell(i.getValue(), "max-w-[14rem]"),
   }),
   col.accessor("date", {
     size: 130,
     minSize: 130,
     maxSize: 130,
-    header: "Date",
+    header: "DATE",
     cell: (i) => (
       <span className="tabular-nums text-muted-foreground whitespace-nowrap">
         {i.getValue().trim().slice(0, 10)}
@@ -126,7 +131,7 @@ export const candidateColumns = [
     size: 90,
     minSize: 90,
     maxSize: 90,
-    header: "Age",
+    header: "AGE",
     cell: (i) => numericCell(i.getValue()),
   }),
   col.accessor("has_university", {
@@ -146,7 +151,7 @@ export const candidateColumns = [
           className="flex items-center justify-center gap-1 w-full cursor-pointer select-none"
           aria-label={`Sort by university${sorted === "asc" ? ", descending" : sorted === "desc" ? ", clear sort" : ", ascending"}`}
         >
-          University
+          UNIVERSITY
           {sorted === "asc" ? (
             <ArrowUp className="h-3 w-3" />
           ) : sorted === "desc" ? (
@@ -163,28 +168,28 @@ export const candidateColumns = [
     size: 224,
     minSize: 224,
     maxSize: 224,
-    header: "Career",
+    header: "CAREER",
     cell: (i) => truncatedCell(i.getValue(), "max-w-[14rem]"),
   }),
   col.accessor("graduated", {
     size: 120,
     minSize: 120,
     maxSize: 120,
-    header: "Graduated",
+    header: "GRADUATED",
     cell: (i) => textCell(i.getValue()),
   }),
   col.accessor("courses_approved", {
     size: 170,
     minSize: 170,
     maxSize: 170,
-    header: "Courses Approved",
+    header: "COURSES APPROVED",
     cell: (i) => textCell(i.getValue()),
   }),
   col.accessor("location", {
     size: 240,
     minSize: 240,
     maxSize: 240,
-    header: "Location",
+    header: "LOCATION",
     cell: (i) => truncatedCell(i.getValue(), "max-w-[16rem]"),
   }),
   col.accessor("accepts_working_hours", {
@@ -204,7 +209,7 @@ export const candidateColumns = [
           className="flex items-center justify-center gap-1 w-full cursor-pointer select-none"
           aria-label={`Sort by accepts hours${sorted === "asc" ? ", descending" : sorted === "desc" ? ", clear sort" : ", ascending"}`}
         >
-          Accepts Hours
+          ACCEPTS HOURS
           {sorted === "asc" ? (
             <ArrowUp className="h-3 w-3" />
           ) : sorted === "desc" ? (
@@ -232,7 +237,7 @@ export const candidateColumns = [
           className="flex items-center justify-center gap-1 w-full cursor-pointer select-none"
           aria-label={`Sort by desired salary${sorted === "asc" ? ", descending" : sorted === "desc" ? ", clear sort" : ", ascending"}`}
         >
-          Desired Salary
+          DESIRED SALARY
           {sorted === "asc" ? (
             <ArrowUp className="h-3 w-3" />
           ) : sorted === "desc" ? (
@@ -257,13 +262,36 @@ export const candidateColumns = [
     size: 140,
     minSize: 140,
     maxSize: 140,
-    header: "Had Interview",
+    header: "HAD INTERVIEW",
     cell: (i) => textCell(i.getValue()),
+  }),
+  col.accessor("reason", {
+    size: 300,
+    minSize: 300,
+    maxSize: 300,
+    header: "REASON",
+    cell: (i) => {
+      const value = i.getValue();
+      if (!value) return <span className="text-muted-foreground">—</span>;
+      return (
+        <Tooltip>
+          <TooltipTrigger className="block w-full max-w-full overflow-hidden text-center cursor-default">
+            <span className="block w-full truncate">{value}</span>
+          </TooltipTrigger>
+          <TooltipContent
+            side="top"
+            className="max-w-sm whitespace-pre-wrap break-words"
+          >
+            {value}
+          </TooltipContent>
+        </Tooltip>
+      );
+    },
   }),
   // Pinned UI columns — not in columnVisibility, always visible
   col.display({
     id: "status",
-    header: "Status",
+    header: "STATUS",
     enableHiding: false,
     size: 140,
     minSize: 140,
@@ -276,7 +304,7 @@ export const candidateColumns = [
   }),
   col.display({
     id: "action",
-    header: "Actions",
+    header: "ACTIONS",
     enableHiding: false,
     size: 96,
     minSize: 96,
