@@ -27,13 +27,10 @@ export function TableSkeleton() {
           </TableHeader>
           <TableBody>
             {Array.from({ length: SKELETON_ROWS }).map((_, i) => (
-              <TableRow
-                key={i}
-                className={i % 2 === 1 ? "bg-muted/20" : ""}
-              >
+              <TableRow key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}>
                 {Array.from({ length: SKELETON_COLS }).map((_, j) => (
                   <TableCell key={j} className="px-4 py-3">
-                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-8 w-full" />
                   </TableCell>
                 ))}
               </TableRow>

@@ -45,7 +45,7 @@ export function useTableData(statusFilter: StatusFilterValue, searchQuery: strin
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    defaultColumn: { enableSorting: false },
+    defaultColumn: { enableSorting: false, size: 160, minSize: 160, maxSize: 160 },
     initialState: { pagination: { pageSize: PAGE_SIZE, pageIndex: 0 } },
     state: { columnVisibility, sorting },
     onSortingChange: setSorting,

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Settings2Icon, Loader2Icon } from 'lucide-react';
-import { toast } from 'sonner';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Settings2Icon, Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,11 +11,11 @@ import {
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
-import { useColumns } from '@/hooks/useColumns';
-import { useUpdateColumns } from '@/hooks/useUpdateColumns';
-import type { ColumnVisibilityMap } from '@/types';
-import { CV_KEYS, toEntries } from './utils/visibilityFilters';
+} from "@/components/ui/dropdown-menu";
+import { useColumns } from "@/hooks/useColumns";
+import { useUpdateColumns } from "@/hooks/useUpdateColumns";
+import type { ColumnVisibilityMap } from "@/types";
+import { CV_KEYS, toEntries } from "./utils/visibilityFilters";
 
 export function ColumnVisibilityFilter() {
   const { data: columns } = useColumns();
@@ -45,10 +45,10 @@ export function ColumnVisibilityFilter() {
       onSuccess: () => {
         setOpen(false);
         setDraft(null);
-        toast.success('Column visibility updated.');
+        toast.success("Column visibility updated.");
       },
       onError: () => {
-        toast.error('Failed to update columns. Please try again.');
+        toast.error("Failed to update columns. Please try again.");
       },
     });
   }
@@ -57,7 +57,12 @@ export function ColumnVisibilityFilter() {
 
   return (
     <DropdownMenu open={open} onOpenChange={handleOpenChange}>
-      <DropdownMenuTrigger className={cn(buttonVariants({ variant: 'outline' }), 'gap-2 w-full sm:w-auto')}>
+      <DropdownMenuTrigger
+        className={cn(
+          buttonVariants({ variant: "outline" }),
+          "gap-2 w-full sm:w-auto",
+        )}
+      >
         <Settings2Icon className="size-4" />
         Visible Columns
       </DropdownMenuTrigger>
@@ -84,7 +89,7 @@ export function ColumnVisibilityFilter() {
         <DropdownMenuSeparator className="mt-2" />
         <div className="pt-1">
           <Button
-            className="w-full"
+            className="w-full cursor-pointer"
             disabled={isPending}
             onClick={handleConfirm}
           >
@@ -94,7 +99,7 @@ export function ColumnVisibilityFilter() {
                 Saving…
               </>
             ) : (
-              'Confirm'
+              "Confirm"
             )}
           </Button>
         </div>
