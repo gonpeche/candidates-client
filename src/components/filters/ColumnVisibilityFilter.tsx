@@ -57,7 +57,7 @@ export function ColumnVisibilityFilter() {
 
   return (
     <DropdownMenu open={open} onOpenChange={handleOpenChange}>
-      <DropdownMenuTrigger className={cn(buttonVariants({ variant: 'outline' }), 'gap-2')}>
+      <DropdownMenuTrigger className={cn(buttonVariants({ variant: 'outline' }), 'gap-2 w-full sm:w-auto')}>
         <Settings2Icon className="size-4" />
         Visible Columns
       </DropdownMenuTrigger>

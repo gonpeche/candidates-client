@@ -1,5 +1,11 @@
-import { useMemo } from 'react';
-import { getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
+import { useMemo, useState } from 'react';
+import {
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+  type SortingState,
+} from '@tanstack/react-table';
 import { useColumnVisibility } from '@/hooks/useColumnVisibility';
 import { useCandidates } from '@/hooks/useCandidates';
 import type { StatusFilterValue } from '@/components/filters/StatusFilter';
@@ -26,6 +32,7 @@ function filterCandidates(
 export function useTableData(statusFilter: StatusFilterValue, searchQuery: string) {
   const { data, isLoading, isError, refetch } = useCandidates();
   const { columnVisibility } = useColumnVisibility();
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const candidates = useMemo(
     () => filterCandidates(data, statusFilter, searchQuery),
@@ -37,8 +44,11 @@ export function useTableData(statusFilter: StatusFilterValue, searchQuery: strin
     columns: candidateColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    defaultColumn: { enableSorting: false },
     initialState: { pagination: { pageSize: PAGE_SIZE, pageIndex: 0 } },
-    state: { columnVisibility },
+    state: { columnVisibility, sorting },
+    onSortingChange: setSorting,
   });
 
   return { table, isLoading, isError, refetch };

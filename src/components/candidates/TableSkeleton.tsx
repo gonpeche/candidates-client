@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const SKELETON_ROWS = 10;
+const SKELETON_ROWS = 15;
 const SKELETON_COLS = 8;
 
 export function TableSkeleton() {

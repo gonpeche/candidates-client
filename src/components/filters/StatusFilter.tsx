@@ -18,7 +18,7 @@ export function StatusFilter({ value, onChange }: StatusFilterProps) {
     <>
       <div className="text-sm text-muted-foreground">Filter by status</div>
       <Select value={value} onValueChange={(v) => onChange((v ?? 'all') as StatusFilterValue)}>
-        <SelectTrigger className="w-40" aria-label="Filter by status">
+        <SelectTrigger className="w-full sm:w-40" aria-label="Filter by status">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

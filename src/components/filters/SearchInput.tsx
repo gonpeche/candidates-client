@@ -28,14 +28,14 @@ export function SearchInput({ value, onChange }: SearchInputProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full sm:w-auto">
       <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
       <Input
         type="text"
         placeholder="Search by name or email..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className="pl-9 pr-9 w-72"
+        className="pl-9 pr-9 w-full sm:w-72"
         aria-label="Search candidates by name or email"
       />
       {inputValue && (

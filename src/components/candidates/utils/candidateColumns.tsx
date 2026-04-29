@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ExternalLink } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpDown, ExternalLink } from 'lucide-react';
 import type { CandidateWithStatus } from '@/types';
 import { ActionMenu } from '@/components/candidates/ActionMenu';
 import { StatusBadge } from '@/components/candidates/StatusBadge';
@@ -116,7 +116,28 @@ export const candidateColumns = [
     cell: (i) => textCell(i.getValue()),
   }),
   col.accessor('desired_salary', {
-    header: () => <span className="flex justify-center">Desired Salary</span>,
+    enableSorting: true,
+    sortingFn: (rowA, rowB, columnId) =>
+      Number(rowA.getValue(columnId)) - Number(rowB.getValue(columnId)),
+    header: ({ column }) => {
+      const sorted = column.getIsSorted();
+      return (
+        <button
+          onClick={() => column.toggleSorting(sorted === 'asc')}
+          className="flex items-center justify-center gap-1 w-full cursor-pointer select-none"
+          aria-label={`Sort by desired salary${sorted === 'asc' ? ', descending' : sorted === 'desc' ? ', clear sort' : ', ascending'}`}
+        >
+          Desired Salary
+          {sorted === 'asc' ? (
+            <ArrowUp className="h-3 w-3" />
+          ) : sorted === 'desc' ? (
+            <ArrowDown className="h-3 w-3" />
+          ) : (
+            <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+          )}
+        </button>
+      );
+    },
     cell: (i) => (
       <span className="block w-full text-center tabular-nums">
         {i.getValue() ? `$${i.getValue()}` : <span className="text-muted-foreground">—</span>}
