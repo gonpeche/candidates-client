@@ -5,5 +5,6 @@ export function useRejectionReasons() {
   return useQuery({
     queryKey: ["rejection-reasons"],
     queryFn: fetchRejectionReasons,
+    staleTime: Infinity,
   });
 }
